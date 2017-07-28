@@ -1,0 +1,49 @@
+#bootstrap-overrides h1 {
+    margin: 1em 0 2em 0;
+    color: #1593cb;
+}
+
+#bootstrap-overrides h4 {
+    margin: 0.3em 0 1em 0;
+    color: #0e4194;
+}
+#bootstrap-overrides h3 {
+    margin: 0.2em 0 0.5em 0;
+    color: #0e4194;
+}
+#bootstrap-overrides h2{
+    margin-bottom: 1em;
+}
+
+#bootstrap-overrides a{
+    color: inherit;
+    text-decoration: underline;
+}
+i {
+    color: #1593cb;
+}
+article{
+    margin-bottom: 2em;
+}
+hr{
+    margin-right:2em;
+    transform: translateY(0.9em);
+    height: 30px;
+    border-style: solid;
+    border-color: #0e4194;
+    border-width: 1px 0 0 0;
+    border-radius: 0 20px 0 0;
+}
+hr:before{
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #0e4194;
+    border-width: 0 0 1px 0;
+    border-radius: 0 0 20px 0;
+}
+#bootstrap-overrides p{
+    margin-top: -0.5em;
+}

@@ -1,2 +1,4 @@
 .direnv/
 data/
+.ropeproject/
+__pycache__/

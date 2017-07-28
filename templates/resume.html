@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Curriculum Vitae</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body id="bootstrap-overrides">
+    <article>
+      <div class=".container">
+        <div class="row">
+          <div class="col-4 text-right">
+            <h1>Curriculum Vitae</h1>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article>
+      <div class=".container">
+        <div class="row">
+          <div class="col-4 text-right">
+            <h4 class="text-uppercase">Personlige opplysninger</h4>
+            <img src="" id="image" class="img-responsive" width="70%"/>
+          </div>
+          <div class="col-8">
+            <h2 class="name">{{ data.first_name }} {{ data.surname}}</h2>
+            <p><i class="fa fa-map-marker fa-lg"></i> {{ data.address }}</p>
+            {% for phone in data.phones %}
+            <p class="phone_list_item">
+              <i class="fa fa-{{ phone.Use.Code.string }} fa-2x"></i>
+              <span class="link_if_phone">{{ phone.Contact.string }}</span>
+            </p>
+            {% endfor %}
+            <p><i class="fa fa-envelope fa-lg"></i> {{ data.email }}</p>
+            <p><i class="fa fa-globe fa-lg"></i>
+              {% for site in data.sites %}
+              <a target="_blank" href="http://{{ site.string }}">{{ site.string }}</a>
+              {% endfor %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    {{ data.divider("Arbeidserfaring") | safe }}
+
+    {% for exp in data.experience %}
+    <article>
+      <div class=".container">
+        <div class="row">
+          <div class="col-4 text-right">
+            <h4>
+              {{ exp.Period.From['day'].strip("-") }}/{{ exp.Period.From['month'].strip("-") }}/{{ exp.Period.From['year'].strip("-") }}
+              &ndash;
+              {% if exp.Period.Current.string=="true" %}
+              I dag
+              {% else %}
+              {{ exp.Period.To['day'].strip("-") }}/{{ exp.Period.To['month'].strip("-") }}/{{ exp.Period.To['year'].strip("-") }}
+              {% endif %}
+            </h4>
+          </div>
+          <div class="col-8">
+            <h3>{{ exp.Position.Label.string }}</h3>
+            <p>{{ exp.Employer.Name.string }}, ({{ exp.find("Municipality").string  }})</p>
+            {{ exp.Activities.string | safe}}
+          </div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+
+    {{ data.divider("Utdanning og opplæring") | safe }}
+
+  </body>
+</html>

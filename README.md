@@ -9,7 +9,6 @@ In a terminal, `cd` to the server's directory, then
 ```
 pip install -r requirements.txt
 ./server.py
-
 ```
 and configure your server to forward incoming requests to localhost:5000.
 If this will be the only thing running on your server, you can instead do

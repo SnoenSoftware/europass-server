@@ -1,21 +1,34 @@
-#bootstrap-overrides h1 {
+:root{
+    --mainblue: #0e4194;
+}
+.blue{
+    color: var(--mainblue);
+}
+#main{
+    width: 98%;
+}
+#overrides h1 {
     margin: 1em 0 2em 0;
     color: #1593cb;
 }
 
-#bootstrap-overrides h4 {
-    margin: 0.3em 0 1em 0;
-    color: #0e4194;
-}
-#bootstrap-overrides h3 {
-    margin: 0.2em 0 0.5em 0;
-    color: #0e4194;
-}
-#bootstrap-overrides h2{
+#overrides h2{
     margin-bottom: 1em;
 }
+#overrides h3 {
+    margin: 0.2em 0 0.5em 0;
+    color: var(--mainblue);
+}
+#overrides h4 {
+    margin: 0.3em 0 1em 0;
+    color: var(--mainblue);
+}
+#overrides h5 {
+    margin: 0.6em 0 1em 0;
+    color: var(--mainblue);
+}
 
-#bootstrap-overrides a{
+#overrides a{
     color: inherit;
     text-decoration: underline;
 }
@@ -30,7 +43,7 @@ hr{
     transform: translateY(0.9em);
     height: 30px;
     border-style: solid;
-    border-color: #0e4194;
+    border-color: var(--mainblue);
     border-width: 1px 0 0 0;
     border-radius: 0 20px 0 0;
 }
@@ -40,10 +53,41 @@ hr:before{
     height: 30px;
     margin-top: -31px;
     border-style: solid;
-    border-color: #0e4194;
+    border-color: var(--mainblue);
     border-width: 0 0 1px 0;
     border-radius: 0 0 20px 0;
 }
-#bootstrap-overrides p{
+#overrides p{
     margin-top: -0.5em;
+    font-size: 1.1rem;
+}
+#overrides .black{
+    color: black;
+}
+#headertable td, #headertable th{
+    border: 2px solid lightgray;
+    text-align: center;
+    color: var(--mainblue);
+}
+#headertable td{
+    width: 20%;
+}
+#overrides .language td{
+    width: 20%;
+    text-align: center;
+}
+#overrides table{
+    border-left: hidden;
+    border-right: hidden;
+    width: 95%;
+    border-bottom: 2px solid lightgray;
+}
+#overrides .language{
+    margin-top:-3.1em;
+}
+#overrides .language .disclaimer{
+    margin-top: -1em;
+}
+#overrides div p:first-child{
+    margin-top: 0.6em;
 }

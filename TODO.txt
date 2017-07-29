@@ -1,0 +1,5 @@
+TODO:
+- Add more languages
+- Refactor to make resume.html less repetitive
+- Make mothertongue section a list instead of an item
+- Add ability to hide, rearrange sections

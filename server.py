@@ -18,12 +18,17 @@ def index():
             city=reader.content_of("Municipality"),
             country=reader.content_of("Label")
         ),
-        "phones": reader.element("TelephoneList").find_all("Telephone"),
+        "phones": reader.find_all("Telephone"),
         "email": reader.element("Email").string,
-        "sites": reader.element("WebsiteList").find_all("Website"),
-        "experience":
-            reader.element("WorkExperienceList").find_all("WorkExperience"),
-        "divider": divider
+        "sites": reader.find_all("Website"),
+        "experience": reader.find_all("WorkExperience"),
+        "educations": reader.find_all("Education"),
+        "mother_tongue": reader.element("MotherTongue").Label.string,
+        "languages": reader.find_all("ForeignLanguage"),
+        "organisational": reader.element("Organisational").Description.string,
+        "jobrelated": reader.element("JobRelated").Description.string,
+        "digital": reader.element("Computer").Description.string,
+        "achievements": reader.find_all("Achievement")
     }
     return render_template("resume.html", data=data)
 
@@ -35,22 +40,6 @@ def image():
     data += ";base64,"
     data += reader.element("Data").contents[0]
     return data
-
-
-def divider(section_name):
-    html = """
-    <div class=".container">
-    <div class="row">
-    <div class="col-4 text-right">
-    <h4 class="text-uppercase">{section_name}</h4>
-    </div>
-    <div class="col-8 text-right">
-    <hr>
-    </div>
-    </div>
-    </div>
-    """.format(section_name=section_name)
-    return html
 
 
 if __name__ == "__main__":

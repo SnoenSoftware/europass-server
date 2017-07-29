@@ -1,84 +1,207 @@
+{% from "macros.html" import divider, format_date_tag %}
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% include "head.html" %}
     <title>Curriculum Vitae</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </head>
-  <body id="bootstrap-overrides">
-    <article>
-      <div class=".container">
-        <div class="row">
-          <div class="col-4 text-right">
-            <h1>Curriculum Vitae</h1>
+  <body id="overrides">
+    <div id="main">
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h1>Curriculum Vitae</h1>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
-    <article>
-      <div class=".container">
-        <div class="row">
-          <div class="col-4 text-right">
-            <h4 class="text-uppercase">Personlige opplysninger</h4>
-            <img src="" id="image" class="img-responsive" width="70%"/>
-          </div>
-          <div class="col-8">
-            <h2 class="name">{{ data.first_name }} {{ data.surname}}</h2>
-            <p><i class="fa fa-map-marker fa-lg"></i> {{ data.address }}</p>
-            {% for phone in data.phones %}
-            <p class="phone_list_item">
-              <i class="fa fa-{{ phone.Use.Code.string }} fa-2x"></i>
-              <span class="link_if_phone">{{ phone.Contact.string }}</span>
-            </p>
-            {% endfor %}
-            <p><i class="fa fa-envelope fa-lg"></i> {{ data.email }}</p>
-            <p><i class="fa fa-globe fa-lg"></i>
-              {% for site in data.sites %}
-              <a target="_blank" href="http://{{ site.string }}">{{ site.string }}</a>
+      </article>
+
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h4 class="text-uppercase">Personlige opplysninger</h4>
+              <img src="" id="image" class="img-responsive" width="60%"/>
+            </div>
+            <div class="col-8">
+              <h2 class="name">{{ data.first_name }} {{ data.surname}}</h2>
+              <p><i class="fa fa-map-marker fa-lg"></i> {{ data.address }}</p>
+              {% for phone in data.phones %}
+              <p class="phone_list_item">
+                <i class="fa fa-{{ phone.Use.Code.string }} fa-2x"></i>
+                <span class="link_if_phone">{{ phone.Contact.string }}</span>
+              </p>
               {% endfor %}
-            </p>
+              <p><i class="fa fa-envelope fa-lg"></i> {{ data.email }}</p>
+              <p><i class="fa fa-globe fa-lg"></i>
+                {% for site in data.sites %}
+                <a target="_blank" href="http://{{ site.string }}">{{ site.string }}</a>
+                {% endfor %}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    {{ data.divider("Arbeidserfaring") | safe }}
+      {{ divider("Arbeidserfaring") }}
 
-    {% for exp in data.experience %}
-    <article>
-      <div class=".container">
-        <div class="row">
-          <div class="col-4 text-right">
-            <h4>
-              {{ exp.Period.From['day'].strip("-") }}/{{ exp.Period.From['month'].strip("-") }}/{{ exp.Period.From['year'].strip("-") }}
-              &ndash;
-              {% if exp.Period.Current.string=="true" %}
-              I dag
-              {% else %}
-              {{ exp.Period.To['day'].strip("-") }}/{{ exp.Period.To['month'].strip("-") }}/{{ exp.Period.To['year'].strip("-") }}
-              {% endif %}
-            </h4>
-          </div>
-          <div class="col-8">
-            <h3>{{ exp.Position.Label.string }}</h3>
-            <p>{{ exp.Employer.Name.string }}, ({{ exp.find("Municipality").string  }})</p>
-            {{ exp.Activities.string | safe}}
+      {% for exp in data.experience %}
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>
+                {{ format_date_tag(exp) }}
+              </h5>
+            </div>
+            <div class="col-8">
+              <h3>{{ exp.Position.Label.string }}</h3>
+              <p>{{ exp.Employer.Name.string }}, ({{ exp.find("Municipality").string  }})</p>
+              {{ exp.Activities.string | safe}}
+            </div>
           </div>
         </div>
-      </div>
-    </article>
-    {% endfor %}
+      </article>
+      {% endfor %}
 
-    {{ data.divider("Utdanning og opplæring") | safe }}
+      {{ divider("Utdanning og opplæring") }}
 
+      {% for edu in data.educations %}
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>
+                {{ format_date_tag(edu) }}
+              </h5>
+            </div>
+            <div class="col-8">
+              <h3>{{ edu.Title.string}}</h3>
+              <p>{{ edu.Organisation.Name.string }}</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+
+      {{ divider("Personlig kompetanse") }}
+
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>Morsmål</h5>
+            </div>
+            <div class="col-8">
+              <h5 class="black">{{ data.mother_tongue }}</h5>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>Andre språk</h5>
+            </div>
+            <div class="col-8">
+              <table id="headertable" class="table table-hover">
+                <tr>
+                  <th colspan="2">Forståelse</th>
+                  <th colspan="2">Muntlig</th>
+                  <th>Skrift</th>
+                </tr>
+                <tr>
+                  <td>Lytting</td>
+                  <td>Lesing</td>
+                  <td>Muntlig interaksjon</td>
+                  <td>Muntlig produksjon</td>
+                  <td></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </article>
+      {% for language in data.languages %}
+      <article class="language">
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5 class="black">{{ language.Description.Label.string }}</h5>
+            </div>
+            <div class="col-8">
+              <table class="table table-hover">
+                <tr>
+                  {% for prof in language.ProficiencyLevel.contents %}
+                  <td>{{ prof.string }}</td>
+                  {% endfor %}
+                </tr>
+              </table>
+              <div class="disclaimer">
+                <span class="blue">Nivåer: A1 og A2: Basisbruker - B1 og B2: Selvstendig bruker - C1 og C2: Avansert bruker</span><br/>
+                <a target="_blank" href="http://europass.cedefop.europa.eu/nb/resources/european-language-levels-cefr">Felles europeisk rammeverk for språk</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>Organisatorisk kompetanse</h5>
+            </div>
+            <div class="col-8">
+              {{ data.organisational | safe }}
+            </div>
+          </div>
+        </div>
+      </article>
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>Arbeidskompetanse</h5>
+            </div>
+            <div class="col-8">
+              {{ data.jobrelated | safe }}
+            </div>
+          </div>
+        </div>
+      </article>
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>Digital kompetanse</h5>
+            </div>
+            <div class="col-8">
+              {{ data.digital | safe }}
+            </div>
+          </div>
+        </div>
+      </article>
+
+      {{ divider("Andre opplysninger") }}
+
+      {% for item in data.achievements %}
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>{{ item.Title.Label.string }}</h5>
+            </div>
+            <div class="col-8">
+              {{ item.Description.string | safe }}
+            </div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
   </body>
 </html>

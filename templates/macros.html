@@ -1,0 +1,21 @@
+{% macro divider(title) %}
+<div class=".container">
+    <div class="row">
+        <div class="col-4 text-right">
+            <h4 class="text-uppercase">{{title}}</h4>
+        </div>
+        <div class="col-8 text-right">
+            <hr>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+{% macro format_date_tag(tag) %}
+    {{ tag.Period.From['day'].strip("-") }}/{{ tag.Period.From['month'].strip("-") }}/{{ tag.Period.From['year'].strip("-") }}
+    &ndash;
+    {% if tag.Period.Current.string=="true" %}
+        I dag
+    {% else %}
+        {{ tag.Period.To['day'].strip("-") }}/{{ tag.Period.To['month'].strip("-") }}/{{ tag.Period.To['year'].strip("-") }}
+    {% endif %}
+{% endmacro %}

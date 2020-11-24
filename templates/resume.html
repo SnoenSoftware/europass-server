@@ -6,7 +6,7 @@
     <title>Curriculum Vitae</title>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </head>
-  <body id="overrides">
+  <body id="overrides" style="min-width: 33em;">
     <div id="main">
       <article>
         <div class=".container">
@@ -35,9 +35,12 @@
               </p>
               {% endfor %}
               <p><i class="fa fa-envelope fa-lg"></i> {{ data.email }}</p>
-              <p><i class="fa fa-globe fa-lg"></i>
                 {% for site in data.sites %}
-                <a target="_blank" href="http://{{ site.string }}">{{ site.string }}</a>
+                <div>
+                  <i class="fa fa-globe fa-lg"></i>
+                  <a target="_blank" href="https://{{ site.text }}">{{ site.text }}</a>
+
+                </div>
                 {% endfor %}
               </p>
             </div>
@@ -58,13 +61,41 @@
             </div>
             <div class="col-8">
               <h3>{{ exp.Position.Label.string }}</h3>
-              <p>{{ exp.Employer.Name.string }}, ({{ exp.find("Municipality").string  }})</p>
+              <p>{{ exp.Employer.Name.string }}</p>
               {{ exp.Activities.string | safe}}
             </div>
           </div>
         </div>
       </article>
       {% endfor %}
+
+      {{ divider("Personlig kompetanse") }}
+
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>Digital kompetanse</h5>
+            </div>
+            <div class="col-8">
+              {{ data.digital | safe }}
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class=".container">
+          <div class="row">
+            <div class="col-4 text-right">
+              <h5>Arbeidskompetanse</h5>
+            </div>
+            <div class="col-8">
+              {{ data.jobrelated | safe }}
+            </div>
+          </div>
+        </div>
+      </article>
 
       {{ divider("Utdanning og opplæring") }}
 
@@ -86,7 +117,7 @@
       </article>
       {% endfor %}
 
-      {{ divider("Personlig kompetanse") }}
+      {{ divider("Språk") }}
 
       <article>
         <div class=".container">
@@ -144,59 +175,6 @@
                 <span class="blue">Nivåer: A1 og A2: Basisbruker - B1 og B2: Selvstendig bruker - C1 og C2: Avansert bruker</span><br/>
                 <a target="_blank" href="http://europass.cedefop.europa.eu/nb/resources/european-language-levels-cefr">Felles europeisk rammeverk for språk</a>
               </div>
-            </div>
-          </div>
-        </div>
-      </article>
-      {% endfor %}
-      <article>
-        <div class=".container">
-          <div class="row">
-            <div class="col-4 text-right">
-              <h5>Organisatorisk kompetanse</h5>
-            </div>
-            <div class="col-8">
-              {{ data.organisational | safe }}
-            </div>
-          </div>
-        </div>
-      </article>
-      <article>
-        <div class=".container">
-          <div class="row">
-            <div class="col-4 text-right">
-              <h5>Arbeidskompetanse</h5>
-            </div>
-            <div class="col-8">
-              {{ data.jobrelated | safe }}
-            </div>
-          </div>
-        </div>
-      </article>
-      <article>
-        <div class=".container">
-          <div class="row">
-            <div class="col-4 text-right">
-              <h5>Digital kompetanse</h5>
-            </div>
-            <div class="col-8">
-              {{ data.digital | safe }}
-            </div>
-          </div>
-        </div>
-      </article>
-
-      {{ divider("Andre opplysninger") }}
-
-      {% for item in data.achievements %}
-      <article>
-        <div class=".container">
-          <div class="row">
-            <div class="col-4 text-right">
-              <h5>{{ item.Title.Label.string }}</h5>
-            </div>
-            <div class="col-8">
-              {{ item.Description.string | safe }}
             </div>
           </div>
         </div>

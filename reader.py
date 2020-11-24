@@ -28,4 +28,5 @@ if __name__ == "__main__":
     soup = reader.soup
     data = soup.find("Data")
     data.extract()
-    print(soup.prettify())
+    email = reader.element('Email')
+    print(email.text)

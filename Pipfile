@@ -5,9 +5,8 @@ name = "pypi"
 
 [packages]
 beautifulsoup4 = "==4.6.0"
-flask = "==0.12.2"
-jinja2 = "==2.9.6"
 lxml = "==4.5.0"
+flask = "==0.12.2"
 
 [dev-packages]
 

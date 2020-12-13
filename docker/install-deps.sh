@@ -1,7 +1,4 @@
 set -e
-apt-get update -y
-apt-get install gcc -y
 
+apk add build-base libxml2-dev libxslt-dev
 pip install pipenv
-
-apt-get autoremove -y

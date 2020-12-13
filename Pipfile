@@ -11,4 +11,4 @@ flask = "~=0.12.2"
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"

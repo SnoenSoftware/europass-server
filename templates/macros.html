@@ -12,10 +12,14 @@
 {% endmacro %}
 {% macro format_date_tag(tag) %}
     {{ tag.Period.From['day'].strip("-") }}/{{ tag.Period.From['month'].strip("-") }}/{{ tag.Period.From['year'].strip("-") }}
-    &ndash;
+    {% if tag.Period.To or tag.Period.Current.string=="true" %}
+        &ndash;
+    {% endif %}
     {% if tag.Period.Current.string=="true" %}
         I dag
     {% else %}
-        {{ tag.Period.To['day'].strip("-") }}/{{ tag.Period.To['month'].strip("-") }}/{{ tag.Period.To['year'].strip("-") }}
+        {% if tag.Period.To %}
+            {{ tag.Period.To['day'].strip("-") }}/{{ tag.Period.To['month'].strip("-") }}/{{ tag.Period.To['year'].strip("-") }}
+        {% endif %}
     {% endif %}
 {% endmacro %}

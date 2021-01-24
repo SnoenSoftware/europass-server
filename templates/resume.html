@@ -63,6 +63,10 @@
               <h3>{{ exp.Position.Label.string }}</h3>
               <p>{{ exp.Employer.Name.string }}</p>
               {{ exp.Activities.string | safe}}
+              {% for website in exp.Employer.find_all("Website") %}
+                <i class="fa fa-globe fa-lg"></i>
+                <a href="{{ website.Contact.AddressLine.string }}">{{ website.Contact.AddressLine.string | replace("https://", "") | trim("/") }}</a>
+              {% endfor %}
             </div>
           </div>
         </div>

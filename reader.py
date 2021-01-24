@@ -23,6 +23,7 @@ class Reader:
     def find_all(self, tag):
         return self.soup.find_all(tag)
 
+
 if __name__ == "__main__":
     reader = Reader("data/CV.xml")
     soup = reader.soup

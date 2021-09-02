@@ -2,10 +2,10 @@
 
 .PHONY: prod push
 
-registry = registry.digitalocean.com
+registry = ghcr.io/bjornsnoen
 
 prod:
-	docker build . -f docker/Dockerfile --target=runner -t $(registry)/brbcoffee/site:cv
+	docker build . -f docker/Dockerfile --target=runner -t $(registry)/europass-server:latest
 
 push: prod
 	docker push $(registry)/brbcoffee/site:cv

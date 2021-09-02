@@ -3,10 +3,10 @@
 .PHONY: prod push
 
 registry = ghcr.io/bjornsnoen
+repository = europass-server
 
 prod:
-	docker build . -f docker/Dockerfile --target=runner -t $(registry)/europass-server:latest
+	docker build . -f docker/Dockerfile --target=runner -t $(registry)/$(repository)
 
 push: prod
-	docker push $(registry)/brbcoffee/site:cv
-
+	docker push $(registry)/$(repository)

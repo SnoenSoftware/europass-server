@@ -2,7 +2,7 @@
 
 .PHONY: prod push
 
-registry = ghcr.io/bjornsnoen
+registry = ghcr.io/brbkaffe
 repository = europass-server
 
 prod:

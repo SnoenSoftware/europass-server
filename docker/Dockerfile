@@ -21,4 +21,4 @@ USER nobody
 WORKDIR /app
 ENV FLASK_APP="server.py"
 CMD ["/app/.venv/bin/flask", "run", "--port", "5000", "--host", "0.0.0.0"]
-LABEL org.opencontainers.image.source = "https://github.com/bjornsnoen/europass-server"
+LABEL org.opencontainers.image.source = "https://github.com/brbkaffe/europass-server"

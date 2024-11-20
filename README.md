@@ -5,7 +5,7 @@ Europass has come out with a new version of their service, where you can no long
 # Europass CV server
 ### A flask server for your Eurpass generated CV
 
-This server used to take your CV from [europass(defunct)](https://europass.cedefop.europa.eu/nb) and turns it into a web page.
+This server used to take your CV from [europass(defunct)](https://europass.cedefop.europa.eu/nb) and turn it into a web page.
 
 ## How to use it:
 In the same folder as server.py, create a folder named data, and place your CV.xml file into it.

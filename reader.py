@@ -7,7 +7,7 @@ class Reader:
         self.soup = bs(self.read(path), "xml")
 
     def read(self, path):
-        f = open(path, 'r')
+        f = open(path, "r")
         xml = ""
         for line in f.readlines():
             xml += line
@@ -29,5 +29,5 @@ if __name__ == "__main__":
     soup = reader.soup
     data = soup.find("Data")
     data.extract()
-    email = reader.element('Email')
+    email = reader.element("Email")
     print(email.text)

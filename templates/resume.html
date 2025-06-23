@@ -60,7 +60,7 @@
               </h5>
             </div>
             <div class="col-8">
-              <h3>{{ exp.Position.Label.string }}</h3>
+              <h3>{{ exp.Position.Label.string }}{%if exp.Position.Label.get("alternativeLabel") %}, {{ exp.Position.Label.get("alternativeLabel") }}{% endif %}</h3>
               <p>{{ exp.Employer.Name.string }}</p>
               {{ exp.Activities.string | safe}}
               {% for website in exp.Employer.find_all("Website") %}

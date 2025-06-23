@@ -18,4 +18,4 @@ dev: deps
 	FLASK_APP=server.py uv run flask run --port 5000 --reload
 
 docker_test: prod
-	docker run --rm -it -p 5000:5000 -v $(pwd)/data/:/app/data/ ghcr.io/snoensoftware/europass-server 
+	docker run --rm -it -p 5000:5000 -v $$(pwd)/data/CV.pdf:/app/data/CV.pdf ghcr.io/snoensoftware/europass-server 

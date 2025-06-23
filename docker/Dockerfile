@@ -9,13 +9,14 @@ COPY pyproject.toml uv.lock /app/
 
 RUN uv sync
 
-COPY ./server.py ./reader.py /app/
+COPY ./server.py ./reader.py ./esco.py /app/
 COPY ./static /app/static
 COPY ./templates /app/templates
 
 FROM python:3.9-alpine AS runner
 COPY --from=builder --chown=nobody /app /app
 RUN apk add libxml2 libxslt
+RUN mkdir /app/data && chown nobody /app/data
 USER nobody
 WORKDIR /app
 ENV FLASK_APP="server.py"

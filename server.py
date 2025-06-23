@@ -1,12 +1,27 @@
 #!/usr/bin/env python
 from flask import Flask, render_template, jsonify
 from bs4.element import Tag
-from reader import Reader
+from reader import Reader, pdf_to_xml
 from pathlib import Path
 
 
 app = Flask(__name__)
-reader = Reader(Path(__file__).parent / "data/CV.xml")
+_data_dir = Path(__file__).parent / "data"
+_xml_file = _data_dir / "CV.xml"
+_pdf_file = _data_dir / "CV.pdf"
+
+only_have_pdf = lambda: _pdf_file.exists() and not _xml_file.exists()
+pdf_is_newer = (
+    lambda: _pdf_file.exists()
+    and _xml_file.exists()
+    and _pdf_file.stat().st_mtime > _xml_file.stat().st_mtime
+)
+
+if only_have_pdf() or pdf_is_newer():
+    print("Converting CV.pdf to CV.xml")
+    pdf_to_xml(_pdf_file, _xml_file)
+
+reader = Reader(_data_dir / "CV.xml")
 
 
 def get_cv_data():
@@ -20,7 +35,8 @@ def get_cv_data():
         ),
         "phones": reader.find_all("Telephone"),
         "email": reader.element("Email").text,
-        "sites": reader.soup.find("Identification").find_all("Website"),
+        # websites: for old XML under Identification, for new XML via mapping
+        "sites": reader.find_all("Website"),
         "experience": reader.find_all("WorkExperience"),
         "educations": reader.find_all("Education"),
         "mother_tongue": reader.element("MotherTongue").Label.text,
@@ -36,12 +52,25 @@ def tag_to_dict(tag):
     data = {}
     # include attributes
     if tag.attrs:
-        data.update(tag.attrs)
+        # convert boolean attributes to True/false
+        for key, value in tag.attrs.items():
+            if isinstance(value, bool):
+                data[key] = value
+            elif isinstance(value, (int, float)):
+                data[key] = value
+            elif isinstance(value, str) and value.isnumeric():
+                data[key] = float(value) if "." in value else int(value)
+            else:
+                data[key] = str(value)
     # collect child tags
     children = [c for c in tag.children if isinstance(c, Tag)]
     # no child tags: return attrs or text
     if not children:
         text = tag.get_text(strip=True)
+        if text == "true" or text == "false":
+            text = text == "true"
+        if isinstance(text, str) and text.isnumeric():
+            text = float(text) if "." in text else int(text)
         if data:
             if text:
                 data["text"] = text
